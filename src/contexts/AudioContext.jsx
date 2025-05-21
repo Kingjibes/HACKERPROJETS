@@ -12,7 +12,8 @@ const SONGS = [
   { id: 7, url: '/assets/background_music7.mp3', name: 'Forest Ambience' },
   { id: 8, url: '/assets/background_music8.mp3', name: 'Cyberpunk City' },
   { id: 9, url: '/assets/background_music9.mp3', name: 'Piano Reflections' },
-  { id: 10, url: '/assets/background_music10.mp3', name: 'Ocean Waves' }
+  { id: 10, url: '/assets/background_music10.mp3', name: 'Ocean Waves' },
+  { id: 10, url: '/assets/background_music11.mp3', name: 'Ocean Waves' }
 ];
 
 export const AudioProvider = ({ children }) => {
