@@ -16,73 +16,80 @@ const SONGS = [
 ];
 
 export const AudioProvider = ({ children }) => {
-  const [isPlaying, setIsPlaying] = useState(true); // Default: true (autoplay)
+  const [isPlaying, setIsPlaying] = useState(true);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const audioRef = useRef(null);
 
-  // Initialize audio and attempt autoplay
+  // Initialize audio
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      audioRef.current = new Audio(SONGS[currentSongIndex].url);
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.2;
+      // Create new audio element when song changes
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.removeEventListener('ended', handleSongEnd);
+      }
 
-      const playAudio = async () => {
+      audioRef.current = new Audio(SONGS[currentSongIndex].url);
+      audioRef.current.volume = 0.2;
+      audioRef.current.loop = false; // Disable loop to allow song progression
+      audioRef.current.addEventListener('ended', handleSongEnd);
+
+      // Attempt autoplay with error handling
+      const attemptAutoplay = async () => {
         try {
           await audioRef.current.play();
           setIsPlaying(true);
-        } catch (error) {
-          console.error("Autoplay blocked:", error);
+        } catch (err) {
+          console.log("Autoplay blocked by browser:", err);
           setIsPlaying(false);
         }
       };
 
-      playAudio();
+      attemptAutoplay();
 
       return () => {
         if (audioRef.current) {
           audioRef.current.pause();
-          audioRef.current.removeEventListener('ended', playNextSong);
+          audioRef.current.removeEventListener('ended', handleSongEnd);
         }
       };
     }
   }, [currentSongIndex]);
 
+  const handleSongEnd = () => {
+    playNextSong();
+  };
+
   const playNextSong = () => {
-    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % SONGS.length);
+    setCurrentSongIndex(prev => (prev + 1) % SONGS.length);
   };
 
   const playPreviousSong = () => {
-    setCurrentSongIndex((prevIndex) => 
-      (prevIndex - 1 + SONGS.length) % SONGS.length
-    );
+    setCurrentSongIndex(prev => (prev - 1 + SONGS.length) % SONGS.length);
   };
 
   const selectSong = (index) => {
     if (index >= 0 && index < SONGS.length) {
       setCurrentSongIndex(index);
-      if (isPlaying) {
-        audioRef.current.play().catch(console.error);
-      }
     }
   };
 
   const toggleAudio = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play().catch(error => 
-          console.error("Playback error:", error)
-        );
-      }
-      setIsPlaying(!isPlaying);
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(err => console.log("Playback failed:", err));
     }
+    setIsPlaying(!isPlaying);
   };
 
   return (
     <AudioContext.Provider value={{ 
-      isPlaying, 
+      isPlaying,
       toggleAudio,
       currentSong: SONGS[currentSongIndex],
       songs: SONGS,
