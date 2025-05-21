@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: hackerpro-projects
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    env: node
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 18.x
