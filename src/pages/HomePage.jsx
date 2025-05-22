@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
     import { Button } from '@/components/ui/button';
     import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
     import { motion } from 'framer-motion';
-    import { ExternalLink, Eye, Zap, Code } from 'lucide-react';
+    import { ExternalLink, Eye, Zap, Code, ChevronDown } from 'lucide-react';
     import { useToast } from '@/components/ui/use-toast';
     import { supabase } from '@/lib/supabaseClient';
 
@@ -66,13 +66,25 @@ import React, { useState, useEffect } from 'react';
         },
       };
 
+      const scrollDownVariants = {
+        animate: {
+          y: [0, 10, 0],
+          opacity: [1, 0.7, 1],
+          transition: {
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }
+        }
+      };
+
       return (
         <div className="space-y-16">
           <motion.section
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center py-20 md:py-24 bg-hero-gradient-light dark:bg-hero-gradient-dark rounded-xl shadow-2xl overflow-hidden relative"
+            className="text-center min-h-[calc(80vh-var(--header-height,80px))] flex flex-col justify-center py-12 md:py-16 bg-hero-gradient-light dark:bg-hero-gradient-dark rounded-xl shadow-2xl overflow-hidden relative"
           >
              <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.02] bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%22%20height%3D%22100%22%20viewBox%3D%220%200%20100%20100%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20opacity%3D%22.5%22%20d%3D%22M96%2095%20h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zM0%2095h4v1H0v-1zm8-8h4v1H8v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zM96%2079h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zM0%2079h4v1H0v-1zm8-8h4v1H8v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zM96%2063h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zM0%2063h4v1H0v-1zm8-8h4v1H8v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zM96%2047h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zM0%2047h4v1H0v-1zm8-8h4v1H8v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zM96%2031h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zM0%2031h4v1H0v-1zm8-8h4v1H8v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zm8%200h4v1h-4v-1zM96%2015h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zm-8%200h4v1h-4v-1zM0%2015h4v1H0v-1z%22/%3E%3Cpath%20d%3D%22M6%209V0h1v9H6zM14%209V0h1v9h-1zM22%209V0h1v9h-1zM30%209V0h1v9h-1zM38%209V0h1v9h-1zM46%209V0h1v9h-1zM54%209V0h1v9h-1zM62%209V0h1v9h-1zM70%209V0h1v9h-1zM78%209V0h1v9h-1zM86%209V0h1v9h-1zM94%209V0h1v9h-1z%22/%3E%3C/g%3E%3C/svg%3E')]"></div>
             <div className="relative z-10">
@@ -100,9 +112,17 @@ import React, { useState, useEffect } from 'react';
                 </Button>
               </motion.div>
             </div>
+            <motion.div 
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 text-foreground/70"
+              variants={scrollDownVariants}
+              animate="animate"
+              onClick={() => window.scrollTo({ top: window.innerHeight * 0.8, behavior: 'smooth' })}
+            >
+              <ChevronDown size={36} className="cursor-pointer" />
+            </motion.div>
           </motion.section>
 
-          <section className="pb-12">
+          <section className="pb-12 pt-8" id="projects-section">
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-12 text-center">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-brand-primary">
                 <Zap className="inline-block h-10 w-10 mr-2 -mt-1 text-yellow-400" />
@@ -134,7 +154,7 @@ import React, { useState, useEffect } from 'react';
                     <Card className="h-full flex flex-col overflow-hidden glassmorphism group hover:shadow-2xl dark:hover:shadow-[0_0_35px_hsl(var(--brand-accent)/0.3)] transition-all duration-300 ease-out transform hover:-translate-y-2 border-transparent hover:border-primary/30 dark:hover:border-brand-accent/50">
                       {project.image_url && (
                         <div className="aspect-[16/10] overflow-hidden relative">
-                          <img src={project.image_url} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110" />
+                          <img-replace src={project.image_url} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
                       )}
