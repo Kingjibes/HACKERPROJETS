@@ -1,0 +1,118 @@
+
+    /* Moving Stars Background */
+    @function random_range($min, $max) {
+      @return random() * ($max - $min) + $min;
+    }
+
+    #stars, #stars2, #stars3 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+    }
+
+    #stars {
+      background: transparent;
+      --star-size: 1px;
+      --star-shadow: #{random_range(1, 1920)}px #{random_range(1, 1080)}px #FFF;
+    }
+    #stars2 {
+      background: transparent;
+      --star-size: 2px;
+      --star-shadow: #{random_range(1, 1920)}px #{random_range(1, 1080)}px #FFF;
+    }
+    #stars3 {
+      background: transparent;
+      --star-size: 3px;
+      --star-shadow: #{random_range(1, 1920)}px #{random_range(1, 1080)}px #FFF;
+    }
+
+    @for $i from 1 through 700 {
+      #stars {
+        --star-shadow: var(--star-shadow), #{random_range(1, 1920)}px #{random_range(1, 1080)}px #FFF;
+      }
+    }
+    @for $i from 1 through 200 {
+      #stars2 {
+        --star-shadow: var(--star-shadow), #{random_range(1, 1920)}px #{random_range(1, 1080)}px #FFF;
+      }
+    }
+    @for $i from 1 through 100 {
+      #stars3 {
+        --star-shadow: var(--star-shadow), #{random_range(1, 1920)}px #{random_range(1, 1080)}px #FFF;
+      }
+    }
+
+    #stars::after, #stars2::after, #stars3::after {
+      content: " ";
+      position: absolute;
+      top: -1080px;
+      left: 0;
+      width: var(--star-size);
+      height: var(--star-size);
+      background: transparent;
+      box-shadow: var(--star-shadow);
+      border-radius: 100%;
+      animation: animStar 50s linear infinite;
+    }
+    
+    #stars2::after {
+      animation-duration: 100s;
+    }
+
+    #stars3::after {
+      animation-duration: 150s;
+    }
+
+    @keyframes animStar {
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(1080px) translateX(-50px);
+      }
+    }
+
+    .dark #stars::after, .dark #stars2::after, .dark #stars3::after {
+      box-shadow: var(--star-shadow); /* Same color for dark mode, or adjust if needed */
+    }
+
+    .animate-logo-pulse {
+      animation: logoPulse 2.5s infinite ease-in-out;
+    }
+    
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); text-shadow: 
+        0 0 5px hsl(var(--brand-primary) / 0.7),
+        0 0 10px hsl(var(--brand-primary) / 0.5),
+        0 0 15px hsl(var(--brand-secondary) / 0.5),
+        0 0 20px hsl(var(--brand-secondary) / 0.3);}
+      50% { transform: scale(1.05); text-shadow:
+        0 0 8px hsl(var(--brand-primary) / 0.9),
+        0 0 15px hsl(var(--brand-primary) / 0.7),
+        0 0 25px hsl(var(--brand-secondary) / 0.7),
+        0 0 35px hsl(var(--brand-secondary) / 0.5); }
+    }
+
+    .dark .animate-logo-pulse {
+       animation-name: logoPulseDark;
+    }
+
+    @keyframes logoPulseDark {
+      0%, 100% { transform: scale(1); text-shadow: 
+        0 0 5px hsl(var(--brand-accent) / 0.7),
+        0 0 10px hsl(var(--brand-accent) / 0.5),
+        0 0 15px hsl(var(--brand-primary) / 0.5),
+        0 0 20px hsl(var(--brand-primary) / 0.3);}
+      50% { transform: scale(1.05); text-shadow:
+        0 0 8px hsl(var(--brand-accent) / 0.9),
+        0 0 15px hsl(var(--brand-accent) / 0.7),
+        0 0 25px hsl(var(--brand-primary) / 0.7),
+        0 0 35px hsl(var(--brand-primary) / 0.5); }
+    }
+  
