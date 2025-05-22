@@ -13,49 +13,75 @@ const SONGS = [
   { id: 8, url: '/assets/background_music8.mp3', name: 'Cyberpunk City' },
   { id: 9, url: '/assets/background_music9.mp3', name: 'Piano Reflections' },
   { id: 10, url: '/assets/background_music10.mp3', name: 'Ocean Waves' },
-  { id: 11, url: '/assets/background_music11.mp3', name: 'Ocean Waves' }
+  { id: 11, url: '/assets/background_music11.mp3', name: 'Mountain Echoes' }
 ];
 
 export const AudioProvider = ({ children }) => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false); // Start paused due to browser restrictions
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const audioRef = useRef(null);
+  const userInteracted = useRef(false);
 
   // Initialize audio
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Create new audio element when song changes
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.removeEventListener('ended', handleSongEnd);
-      }
-
-      audioRef.current = new Audio(SONGS[currentSongIndex].url);
-      audioRef.current.volume = 0.2;
-      audioRef.current.loop = false; // Disable loop to allow song progression
-      audioRef.current.addEventListener('ended', handleSongEnd);
-
-      // Attempt autoplay with error handling
-      const attemptAutoplay = async () => {
-        try {
-          await audioRef.current.play();
-          setIsPlaying(true);
-        } catch (err) {
-          console.log("Autoplay blocked by browser:", err);
-          setIsPlaying(false);
-        }
+      setupAudio();
+      
+      // Add event listener for user interaction
+      const handleFirstInteraction = () => {
+        userInteracted.current = true;
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('touchstart', handleFirstInteraction);
       };
-
-      attemptAutoplay();
+      
+      document.addEventListener('click', handleFirstInteraction);
+      document.addEventListener('touchstart', handleFirstInteraction);
 
       return () => {
         if (audioRef.current) {
           audioRef.current.pause();
           audioRef.current.removeEventListener('ended', handleSongEnd);
         }
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('touchstart', handleFirstInteraction);
       };
     }
+  }, []);
+
+  // Handle song changes
+  useEffect(() => {
+    if (audioRef.current && userInteracted.current) {
+      setupAudio();
+      if (isPlaying) {
+        playAudio().catch(console.error);
+      }
+    }
   }, [currentSongIndex]);
+
+  const setupAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.removeEventListener('ended', handleSongEnd);
+    }
+
+    audioRef.current = new Audio(SONGS[currentSongIndex].url);
+    audioRef.current.volume = 0.2;
+    audioRef.current.loop = false;
+    audioRef.current.addEventListener('ended', handleSongEnd);
+  };
+
+  const playAudio = async () => {
+    try {
+      await audioRef.current.play();
+      setIsPlaying(true);
+      setAutoplayBlocked(false);
+    } catch (err) {
+      console.log("Playback blocked:", err);
+      setIsPlaying(false);
+      setAutoplayBlocked(true);
+    }
+  };
 
   const handleSongEnd = () => {
     playNextSong();
@@ -75,23 +101,36 @@ export const AudioProvider = ({ children }) => {
     }
   };
 
-  const toggleAudio = () => {
+  const toggleAudio = async () => {
     if (!audioRef.current) return;
 
     if (isPlaying) {
       audioRef.current.pause();
+      setIsPlaying(false);
     } else {
-      audioRef.current.play()
-        .then(() => setIsPlaying(true))
-        .catch(err => console.log("Playback failed:", err));
+      try {
+        await audioRef.current.play();
+        setIsPlaying(true);
+        setAutoplayBlocked(false);
+      } catch (err) {
+        console.log("Playback failed:", err);
+        setIsPlaying(false);
+        setAutoplayBlocked(true);
+      }
     }
-    setIsPlaying(!isPlaying);
+  };
+
+  const enableAudio = async () => {
+    userInteracted.current = true;
+    await toggleAudio();
   };
 
   return (
     <AudioContext.Provider value={{ 
       isPlaying,
       toggleAudio,
+      enableAudio,
+      autoplayBlocked,
       currentSong: SONGS[currentSongIndex],
       songs: SONGS,
       playNextSong,
