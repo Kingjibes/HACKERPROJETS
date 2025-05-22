@@ -6,13 +6,14 @@ import React, { useState, useEffect } from 'react';
     import { useToast } from '@/components/ui/use-toast';
     import { useAuth } from '@/contexts/AuthContext';
     import { supabase } from '@/lib/supabaseClient';
-    import { PlusCircle, Edit3, Trash2, LogOut, ExternalLink, Image as ImageIcon, Eye } from 'lucide-react';
+    import { PlusCircle, Edit3, Trash2, LogOut, ExternalLink, Image as ImageIcon, Eye, Users } from 'lucide-react';
     import { motion } from 'framer-motion';
 
     const AdminDashboardPage = () => {
       const [projects, setProjects] = useState([]);
       const [loading, setLoading] = useState(true);
       const [projectToDelete, setProjectToDelete] = useState(null);
+      const [visitCount, setVisitCount] = useState(0);
       const { toast } = useToast();
       const { logout, isAuthenticated } = useAuth(); 
       const navigate = useNavigate();
@@ -39,9 +40,30 @@ import React, { useState, useEffect } from 'react';
         }
       };
 
+      const fetchVisitCount = async () => {
+        try {
+          const { data, error } = await supabase
+            .from('site_visits')
+            .select('visit_count')
+            .eq('id', 1)
+            .single();
+
+          if (error) throw error;
+          setVisitCount(data?.visit_count || 0);
+        } catch (error) {
+          console.error("Error fetching visit count:", error);
+          toast({
+            variant: "destructive",
+            title: "Error Loading Visit Count",
+            description: error.message || "Could not load site statistics.",
+          });
+        }
+      };
+
       useEffect(() => {
         if (isAuthenticated) {
           fetchProjects();
+          fetchVisitCount();
         }
       }, [isAuthenticated, toast]);
 
@@ -110,7 +132,14 @@ import React, { useState, useEffect } from 'react';
             transition={{ duration: 0.5 }}
             className="flex flex-col sm:flex-row justify-between items-center gap-4 p-6 rounded-xl glassmorphism shadow-lg"
           >
-            <h1 className="text-3xl md:text-4xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Admin Dashboard</h1>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Admin Dashboard</h1>
+              <div className="mt-2 flex items-center text-sm text-muted-foreground">
+                <Users className="mr-2 h-5 w-5 text-brand-primary" />
+                <span>Total Site Visits: </span>
+                <span className="font-bold text-foreground ml-1">{visitCount}</span>
+              </div>
+            </div>
             <div className="flex gap-3 flex-wrap justify-center">
               <Button asChild className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                 <Link to="/admin/add-project" className="flex items-center">
@@ -123,11 +152,11 @@ import React, { useState, useEffect } from 'react';
             </div>
           </motion.div>
 
-          {loading ? (
+          {loading && projects.length === 0 ? (
             <div className="flex justify-center items-center py-16">
               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
             </div>
-          ) : projects.length === 0 ? (
+          ) : !loading && projects.length === 0 ? (
             <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
