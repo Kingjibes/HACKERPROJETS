@@ -6,6 +6,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
     import Layout from '@/components/Layout';
     import LoadingScreen from '@/components/LoadingScreen';
     import ProtectedRoute from '@/components/ProtectedRoute';
+    import { supabase } from '@/lib/supabaseClient';
 
     const HomePage = lazy(() => import('@/pages/HomePage'));
     const LoginPage = lazy(() => import('@/pages/LoginPage'));
@@ -15,6 +16,17 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
     const AddProjectPage = lazy(() => import('@/pages/AddProjectPage'));
     const EditProjectPage = lazy(() => import('@/pages/EditProjectPage'));
 
+    const incrementVisitCount = async () => {
+      try {
+        const { error } = await supabase.rpc('increment_visit_counter');
+        if (error) {
+          console.error('Error incrementing visit count:', error);
+        }
+      } catch (error) {
+        console.error('Error in RPC call for visit count:', error);
+      }
+    };
+
     function AppContent() {
       const [isLoading, setIsLoading] = useState(true);
       const { theme } = useTheme();
@@ -23,6 +35,14 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
       useEffect(() => {
         document.documentElement.classList.toggle('dark', theme === 'dark');
       }, [theme]);
+
+      useEffect(() => {
+        const sessionKey = 'site_visit_logged';
+        if (!sessionStorage.getItem(sessionKey)) {
+          incrementVisitCount();
+          sessionStorage.setItem(sessionKey, 'true');
+        }
+      }, []);
 
       useEffect(() => {
         const timer = setTimeout(() => {
@@ -85,4 +105,4 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
           </AudioProvider>
         </ThemeProvider>
       );
-    }
+                    }
