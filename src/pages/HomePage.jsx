@@ -113,12 +113,17 @@ import React, { useState, useEffect } from 'react';
               </motion.div>
             </div>
             <motion.div 
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 text-foreground/70"
+              className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-foreground flex flex-col items-center cursor-pointer group p-3 rounded-lg bg-background/10 dark:bg-background/20 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
               variants={scrollDownVariants}
               animate="animate"
-              onClick={() => window.scrollTo({ top: window.innerHeight * 0.8, behavior: 'smooth' })}
+              onClick={() => document.getElementById('projects-section')?.scrollIntoView({ behavior: 'smooth' })}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <ChevronDown size={36} className="cursor-pointer" />
+              <span className="text-sm sm:text-base font-semibold mb-1 opacity-90 group-hover:opacity-100 transition-opacity">
+                Discover Projects Below
+              </span>
+              <ChevronDown size={56} className="group-hover:scale-110 transition-transform text-primary dark:text-brand-accent" />
             </motion.div>
           </motion.section>
 
@@ -154,8 +159,13 @@ import React, { useState, useEffect } from 'react';
                     <Card className="h-full flex flex-col overflow-hidden glassmorphism group hover:shadow-2xl dark:hover:shadow-[0_0_35px_hsl(var(--brand-accent)/0.3)] transition-all duration-300 ease-out transform hover:-translate-y-2 border-transparent hover:border-primary/30 dark:hover:border-brand-accent/50">
                       {project.image_url && (
                         <div className="aspect-[16/10] overflow-hidden relative">
-                          <img-replace src={project.image_url} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110" />
+                          <img src={project.image_url} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                      )}
+                      {!project.image_url && (
+                         <div className="aspect-[16/10] flex items-center justify-center bg-muted/30 dark:bg-muted/10 rounded-t-lg">
+                            <Code size={48} className="text-muted-foreground/40" />
                         </div>
                       )}
                       <CardHeader className="pt-6 pb-4">
@@ -165,14 +175,13 @@ import React, { useState, useEffect } from 'react';
                         <CardDescription className="text-muted-foreground line-clamp-4 text-base leading-relaxed">{project.description}</CardDescription>
                       </CardContent>
                       <CardFooter className="flex justify-between items-center pt-4 pb-6 px-6 border-t border-border/50">
-                        {project.project_url && (
+                        {project.project_url ? (
                            <Button variant="outline" asChild className="bg-transparent border-primary/50 text-primary hover:bg-primary/10 hover:border-primary hover:text-accent transition-all duration-300 group-hover:scale-105">
                             <a href={project.project_url} target="_blank" rel="noopener noreferrer" className="flex items-center">
                               <Eye className="mr-2 h-4 w-4" /> View Project
                             </a>
                           </Button>
-                        )}
-                        {!project.project_url && (
+                        ) : (
                            <span className="text-sm text-muted-foreground">
                             <Code className="inline-block mr-2 h-4 w-4" /> In Development
                            </span>
