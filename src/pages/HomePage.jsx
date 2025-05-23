@@ -112,8 +112,9 @@ import React, { useState, useEffect } from 'react';
                 </Button>
               </motion.div>
             </div>
+            {/* Scroll Down Indicator - Positioned at the bottom of the hero content area */}
             <motion.div 
-              className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-foreground flex flex-col items-center cursor-pointer group p-3 rounded-lg bg-background/10 dark:bg-background/20 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
+              className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-foreground flex flex-col items-center cursor-pointer group p-3 rounded-lg bg-background/10 dark:bg-background/20 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 mt-8" /* Added mt-8 for spacing */
               variants={scrollDownVariants}
               animate="animate"
               onClick={() => document.getElementById('projects-section')?.scrollIntoView({ behavior: 'smooth' })}
