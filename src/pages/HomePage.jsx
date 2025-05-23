@@ -112,19 +112,13 @@ import React, { useState, useEffect } from 'react';
                 </Button>
               </motion.div>
             </div>
-            {/* Scroll Down Indicator - Positioned at the bottom of the hero content area */}
             <motion.div 
-              className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-foreground flex flex-col items-center cursor-pointer group p-3 rounded-lg bg-background/10 dark:bg-background/20 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 mt-8" /* Added mt-8 for spacing */
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 text-foreground/70"
               variants={scrollDownVariants}
               animate="animate"
               onClick={() => document.getElementById('projects-section')?.scrollIntoView({ behavior: 'smooth' })}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
-              <span className="text-sm sm:text-base font-semibold mb-1 opacity-90 group-hover:opacity-100 transition-opacity">
-                Discover Projects Below
-              </span>
-              <ChevronDown size={56} className="group-hover:scale-110 transition-transform text-primary dark:text-brand-accent" />
+              <ChevronDown size={36} className="cursor-pointer" />
             </motion.div>
           </motion.section>
 
