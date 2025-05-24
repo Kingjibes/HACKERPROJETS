@@ -12,6 +12,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
     const LoginPage = lazy(() => import('@/pages/LoginPage'));
     const RegisterPage = lazy(() => import('@/pages/RegisterPage'));
     const ContactPage = lazy(() => import('@/pages/ContactPage'));
+    const SupportPage = lazy(() => import('@/pages/SupportPage')); // Added SupportPage
     const AdminDashboardPage = lazy(() => import('@/pages/AdminDashboardPage'));
     const AddProjectPage = lazy(() => import('@/pages/AddProjectPage'));
     const EditProjectPage = lazy(() => import('@/pages/EditProjectPage'));
@@ -64,6 +65,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/support" element={<SupportPage />} /> {/* Added SupportPage Route */}
                 <Route 
                   path="/admin" 
                   element={
@@ -105,4 +107,4 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
           </AudioProvider>
         </ThemeProvider>
       );
-                    }
+                }
