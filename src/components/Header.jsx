@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
     import { Link } from 'react-router-dom';
-    import { Moon, Sun, Volume2, VolumeX, Menu, X as CloseIcon } from 'lucide-react';
+    import { Moon, Sun, Volume2, VolumeX, Menu, X as CloseIcon, HeartHandshake } from 'lucide-react';
     import { Button } from '@/components/ui/button';
     import { useTheme } from '@/contexts/ThemeContext';
     import { useAudio } from '@/contexts/AudioContext';
@@ -11,6 +11,7 @@ import React, { useState } from 'react';
       const navItems = [
         { path: '/', label: 'Home' },
         { path: '/contact', label: 'Contact' },
+        { path: '/support', label: 'Support Us', icon: <HeartHandshake className="mr-2 h-5 w-5" /> },
         { path: '/login', label: 'Admin Login' },
       ];
 
@@ -27,7 +28,10 @@ import React, { useState } from 'react';
               <nav className="flex flex-col space-y-2">
                 {navItems.map((item) => (
                   <Button key={item.path} variant="ghost" asChild onClick={onClose} className="justify-start text-lg">
-                    <Link to={item.path}>{item.label}</Link>
+                    <Link to={item.path} className="flex items-center">
+                      {item.icon}
+                      {item.label}
+                    </Link>
                   </Button>
                 ))}
               </nav>
@@ -54,12 +58,17 @@ import React, { useState } from 'react';
               </span>
             </Link>
 
-            <div className="hidden md:flex items-center space-x-2">
+            <div className="hidden md:flex items-center space-x-1">
               <Button variant="ghost" asChild>
                 <Link to="/">Home</Link>
               </Button>
               <Button variant="ghost" asChild>
                 <Link to="/contact">Contact</Link>
+              </Button>
+              <Button variant="ghost" asChild>
+                <Link to="/support" className="flex items-center">
+                  <HeartHandshake className="mr-2 h-4 w-4 text-pink-500" /> Support Us
+                </Link>
               </Button>
             </div>
 
