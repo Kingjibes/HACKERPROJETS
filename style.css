@@ -1,8 +1,10 @@
 :root {
-    --primary: #6e00ff;
-    --secondary: #00f7ff;
-    --dark: #0a0a20;
-    --light: #e0e0ff;
+    --primary-color: #2a6f3b;
+    --secondary-color: #4a8c5e;
+    --accent-color: #f5a623;
+    --text-color: #333;
+    --light-text: #f8f8f8;
+    --background-light: rgba(255, 255, 255, 0.9);
 }
 
 * {
@@ -12,202 +14,294 @@
 }
 
 body {
-    font-family: 'Space Mono', monospace;
-    background-color: var(--dark);
-    color: var(--light);
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(110, 0, 255, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(0, 247, 255, 0.1) 0%, transparent 20%),
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="30" r="1" fill="white" opacity="0.8"/><circle cx="50" cy="15" r="1" fill="white" opacity="0.6"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.9"/><circle cx="10" cy="70" r="1" fill="white" opacity="0.5"/><circle cx="65" cy="85" r="1" fill="white" opacity="0.7"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.4"/></svg>');
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-x: hidden;
-    text-align: center;
-}
-
-.container {
-    max-width: 800px;
-    padding: 2rem;
     position: relative;
     z-index: 1;
 }
 
-h1, h2, h3 {
-    font-family: 'Orbitron', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 10px var(--secondary), 0 0 20px rgba(0, 247, 255, 0.3);
+.content {
+    background: var(--background-light);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
 }
 
 h1 {
-    font-size: 3rem;
-    color: var(--secondary);
-    margin-bottom: 2rem;
-    animation: pulse 3s infinite alternate;
-}
-
-.new-domain {
-    display: inline-block;
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
     font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--secondary);
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.divider {
+    height: 3px;
+    width: 100px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    margin: 1.5rem auto;
+    border-radius: 3px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+.moved-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
     margin: 2rem 0;
-    transition: transform 0.3s ease;
-    position: relative;
-    font-family: 'Orbitron', sans-serif;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.new-domain:hover {
-    transform: scale(1.05);
+.icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 
-.new-domain::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
+.new-url {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin: 1.5rem 0;
+    word-break: break-all;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
-.new-domain:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+.new-url:hover {
+    color: var(--accent-color);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: var(--dark);
-    text-decoration: none;
-    border-radius: 50px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 1rem 0;
+    padding: 0.8rem 1.5rem;
     border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
-    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.btn {
+    background: var(--primary-color);
+    color: white;
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 247, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.btn:active {
-    transform: translateY(1px);
+.btn.secondary {
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
 }
 
-.rocket {
-    font-size: 4rem;
-    display: inline-block;
-    animation: float 3s ease-in-out infinite;
-    margin: 1rem 0;
+.btn.small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
 }
 
-.stars {
+.nature-facts {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border-left: 5px solid var(--accent-color);
+}
+
+.nature-facts h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.footer {
+    margin-top: 3rem;
+    text-align: center;
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.heart {
+    color: #ff6b6b;
+}
+
+/* Nature elements */
+.leaf {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+    background-image: url('images/leaves.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 150px;
+    opacity: 0.7;
     z-index: -1;
+    animation: float 8s infinite ease-in-out;
 }
 
-.star {
+.leaf-1 {
+    top: 10%;
+    left: 5%;
+    transform: rotate(15deg);
+    animation-delay: 0s;
+}
+
+.leaf-2 {
+    bottom: 15%;
+    right: 8%;
+    transform: rotate(-25deg);
+    animation-delay: 2s;
+    width: 120px;
+    height: 120px;
+}
+
+.leaf-3 {
+    top: 30%;
+    right: 15%;
+    transform: rotate(40deg);
+    animation-delay: 4s;
+    width: 100px;
+    height: 100px;
+}
+
+.bird {
     position: absolute;
-    background-color: white;
-    border-radius: 50%;
-    animation: twinkle var(--duration, 3s) infinite ease-in-out;
-    opacity: var(--opacity, 0.7);
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: var(--opacity, 0.7); }
-    50% { opacity: calc(var(--opacity, 0.7) * 0.3); }
-}
-
-@keyframes pulse {
-    0% { text-shadow: 0 0 10px var(--secondary), 0 0 20px rgba(0, 247, 255, 0.3); }
-    100% { text-shadow: 0 0 15px var(--secondary), 0 0 30px rgba(0, 247, 255, 0.5); }
+    background-image: url('images/bird.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 80px;
+    top: 20%;
+    right: 5%;
+    z-index: -1;
+    animation: fly 20s linear infinite;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    0%, 100% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
 }
 
-.planet {
-    position: absolute;
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0.1;
+@keyframes fly {
+    0% {
+        transform: translateX(-100vw) translateY(0);
+    }
+    50% {
+        transform: translateX(0) translateY(-20px);
+    }
+    100% {
+        transform: translateX(100vw) translateY(0);
+    }
 }
 
-.planet-1 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle at 30% 30%, var(--primary), var(--dark));
-    top: -150px;
-    right: -150px;
-}
-
-.planet-2 {
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle at 70% 30%, var(--secondary), var(--dark));
-    bottom: -100px;
-    left: -100px;
-}
-
-.countdown {
-    font-size: 1.5rem;
-    margin: 1rem 0;
-    font-family: 'Orbitron', sans-serif;
-}
-
-.countdown-number {
-    display: inline-block;
-    min-width: 2rem;
-    color: var(--secondary);
-}
-
+/* Responsive design */
 @media (max-width: 768px) {
+    .content {
+        padding: 2rem 1.5rem;
+    }
+    
     h1 {
         font-size: 2rem;
     }
     
-    .new-domain {
-        font-size: 1.5rem;
+    .new-url {
+        font-size: 1.2rem;
+    }
+    
+    .buttons {
+        flex-direction: column;
     }
     
     .btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
+        width: 100%;
     }
     
-    .rocket {
-        font-size: 3rem;
+    .leaf {
+        width: 100px;
+        height: 100px;
     }
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* Add to the end of your existing CSS */
+
+.moved-card ul {
+    text-align: left;
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.moved-card li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.moved-card li:before {
+    content: "•";
+    color: var(--accent-color);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    position: absolute;
+}
+
+#countdown, #countdown2 {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+#redirectMessage {
+    margin-top: 1rem;
+    font-style: italic;
 }
