@@ -4,60 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="10; url=https://hackerprojects-9ox5.onrender.com">
-    <title>We've Moved to a New Home | Nature Projects</title>
+    <title>We've Evolved | New Location</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Inlined background image */
-        body {
-            background-image: url('https://images.unsplash.com/photo-1476231682828-37e571bc172f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');
-        }
-        .leaf {
-            background-image: url('https://www.freeiconspng.com/uploads/green-leaf-png-22.png');
-        }
-        .bird {
-            background-image: url('https://www.freeiconspng.com/uploads/bird-png-33.png');
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="cyber-grid"></div>
+    <div class="particles"></div>
+    
     <div class="container">
-        <div class="leaf leaf-1"></div>
-        <div class="leaf leaf-2"></div>
-        <div class="leaf leaf-3"></div>
-        <div class="bird"></div>
+        <div class="header">
+            <div class="logo-pulse">
+                <div class="logo-core"></div>
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring delay-1"></div>
+                <div class="pulse-ring delay-2"></div>
+            </div>
+            <h1>SYSTEM RELOCATION</h1>
+            <div class="divider">
+                <div class="divider-line"></div>
+                <div class="divider-dot"></div>
+                <div class="divider-line"></div>
+            </div>
+            <p class="subtitle">Our infrastructure has migrated to an upgraded node</p>
+        </div>
         
-        <div class="content">
-            <h1>Our Digital Nest Has Moved</h1>
-            <div class="divider"></div>
-            <p class="subtitle">Like migrating birds following the seasons, we've found a new home for our projects.</p>
-            
-            <div class="moved-card">
-                <i class="fas fa-seedling icon"></i>
-                <p>You will be automatically redirected to our new location in <span id="countdown">10</span> seconds:</p>
+        <div class="moved-card">
+            <div class="card-grid"></div>
+            <div class="card-content">
+                <div class="status-indicator">
+                    <div class="status-light"></div>
+                    <span>ACTIVE</span>
+                </div>
+                <p class="redirect-timer">Auto-redirect in <span id="countdown">10</span>s</p>
+                <p class="new-location-label">NEW NETWORK COORDINATES</p>
                 <a href="https://hackerprojects-9ox5.onrender.com" class="new-url">hackerprojects-9ox5.onrender.com</a>
                 <div class="buttons">
-                    <a href="https://hackerprojects-9ox5.onrender.com" class="btn">Go Now</a>
-                    <button id="exploreBtn" class="btn secondary">Learn Why We Moved</button>
+                    <a href="https://hackerprojects-9ox5.onrender.com" class="btn primary">
+                        <span>CONNECT NOW</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <button id="detailsBtn" class="btn secondary">
+                        <span>MIGRATION DETAILS</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
                 </div>
-            </div>
-            
-            <div class="nature-facts hidden" id="factsContainer">
-                <h3>Why We Migrated</h3>
-                <p>Just like nature evolves, our platform needed room to grow. Our new home offers:</p>
-                <ul>
-                    <li>Better performance</li>
-                    <li>More features</li>
-                    <li>Enhanced security</li>
-                    <li>Improved user experience</li>
-                </ul>
-                <p id="redirectMessage">Redirecting in <span id="countdown2">10</span> seconds...</p>
             </div>
         </div>
         
+        <div class="migration-details hidden" id="detailsContainer">
+            <h3>UPGRADE SPECIFICATIONS</h3>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="spec-content">
+                        <h4>Enhanced Performance</h4>
+                        <p>300% faster response times with optimized routing</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="spec-content">
+                        <h4>Advanced Security</h4>
+                        <p>Military-grade encryption protocols implemented</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-expand"></i></div>
+                    <div class="spec-content">
+                        <h4>Scalable Architecture</h4>
+                        <p>Dynamic resource allocation for peak demand periods</p>
+                    </div>
+                </div>
+            </div>
+            <p class="redirect-notice">Redirecting to new node in <span id="countdown2">10</span> seconds...</p>
+        </div>
+        
         <div class="footer">
-            <p>Thank you for your patience during our migration. <span class="heart">♥</span></p>
+            <p>Thank you for your patience during system migration <span class="version">v2.0.1</span></p>
         </div>
     </div>
 
