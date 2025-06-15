@@ -16,7 +16,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text-color);
-    background-image: url('images/background.jpg');
+    background-image: url('https://images.unsplash.com/photo-1476231682828-37e571bc172f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -171,7 +171,7 @@ h1 {
 /* Nature elements */
 .leaf {
     position: absolute;
-    background-image: url('images/leaves.png');
+    background-image: url('https://www.freeiconspng.com/uploads/green-leaf-png-22.png');
     background-size: contain;
     background-repeat: no-repeat;
     width: 150px;
@@ -208,7 +208,7 @@ h1 {
 
 .bird {
     position: absolute;
-    background-image: url('images/bird.png');
+    background-image: url('https://www.freeiconspng.com/uploads/bird-png-33.png');
     background-size: contain;
     background-repeat: no-repeat;
     width: 100px;
@@ -238,6 +238,38 @@ h1 {
     100% {
         transform: translateX(100vw) translateY(0);
     }
+}
+
+/* Additional styles for the moved notice */
+.moved-card ul {
+    text-align: left;
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.moved-card li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.moved-card li:before {
+    content: "•";
+    color: var(--accent-color);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    position: absolute;
+}
+
+#countdown, #countdown2 {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+#redirectMessage {
+    margin-top: 1rem;
+    font-style: italic;
 }
 
 /* Responsive design */
@@ -270,38 +302,4 @@ h1 {
 
 .hidden {
     display: none;
-}
-
-
-/* Add to the end of your existing CSS */
-
-.moved-card ul {
-    text-align: left;
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-}
-
-.moved-card li {
-    margin-bottom: 0.5rem;
-    position: relative;
-}
-
-.moved-card li:before {
-    content: "•";
-    color: var(--accent-color);
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-    position: absolute;
-}
-
-#countdown, #countdown2 {
-    font-weight: bold;
-    color: var(--accent-color);
-}
-
-#redirectMessage {
-    margin-top: 1rem;
-    font-style: italic;
 }
