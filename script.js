@@ -1,44 +1,30 @@
-// Create stars
-const starsContainer = document.getElementById('stars');
-const starCount = 100;
-
-for (let i = 0; i < starCount; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
+document.addEventListener('DOMContentLoaded', function() {
+    // Set the number of seconds before redirect
+    let seconds = 10;
+    const countdownElement = document.getElementById('countdown');
+    const countdownElement2 = document.getElementById('countdown2');
+    const exploreBtn = document.getElementById('exploreBtn');
+    const factsContainer = document.getElementById('factsContainer');
     
-    // Random properties
-    const size = Math.random() * 2 + 1;
-    const x = Math.random() * 100;
-    const y = Math.random() * 100;
-    const duration = Math.random() * 5 + 2;
-    const opacity = Math.random() * 0.5 + 0.5;
-    const delay = Math.random() * 5;
+    // Update countdown every second
+    const countdownInterval = setInterval(function() {
+        seconds--;
+        countdownElement.textContent = seconds;
+        if (countdownElement2) countdownElement2.textContent = seconds;
+        
+        if (seconds <= 0) {
+            clearInterval(countdownInterval);
+            window.location.href = "https://hackerprojects-9ox5.onrender.com";
+        }
+    }, 1000);
     
-    star.style.width = `${size}px`;
-    star.style.height = `${size}px`;
-    star.style.left = `${x}%`;
-    star.style.top = `${y}%`;
-    star.style.setProperty('--duration', `${duration}s`);
-    star.style.setProperty('--opacity', opacity);
-    star.style.animationDelay = `${delay}s`;
+    // Toggle facts container
+    exploreBtn.addEventListener('click', function() {
+        factsContainer.classList.toggle('hidden');
+    });
     
-    starsContainer.appendChild(star);
-}
-
-// Countdown and redirect
-let count = 5;
-const countdownElement = document.getElementById('countdown');
-const countdownInterval = setInterval(() => {
-    count--;
-    countdownElement.textContent = count;
-    
-    if (count <= 0) {
+    // Allow immediate redirect if user clicks anywhere on the page
+    document.addEventListener('click', function() {
         clearInterval(countdownInterval);
-        window.location.href = 'https://hackerpro.onrender.com';
-    }
-}, 1000);
-
-// Focus the button for keyboard users
-window.onload = function() {
-    document.querySelector('.btn').focus();
-};
+    }, { once: true });
+});
